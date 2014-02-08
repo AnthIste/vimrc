@@ -1,4 +1,5 @@
 set rtp+=~/.vim/bundle/vundle/
+filetype off
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
@@ -47,13 +48,16 @@ let delimitMate_expand_space = 1
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:ctrlp_max_height = 25
 let g:syntastic_check_on_open=1
-let g:rspec_command = 'call SendToTmux("zeus test {spec}\n")'
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 
 filetype plugin indent on
 
 set t_Co=256
-colorscheme grb256
+colorscheme ir_black
+
+set guioptions=agim
+set lines=999
+set columns=999
 
 set splitright
 set splitbelow
@@ -125,38 +129,13 @@ map <F9> <Plug>(xmpfilter-mark)
 " paste, fix indentation and clear the mark by default
 nnoremap p p=`]`<esc>
 
-if $TMUX != ""
-  nmap <leader>ggf :call SendToTmux("ggf && ggmc\n")<CR>
-  nmap <leader>gp :call SendToTmux("gpoc\n")<CR>
-  map <leader>bi :call SendToTmux("bundle\n")<CR>
-  map <leader>rz :!tmux send-keys -tzeus C-c zeus space start enter<CR><CR>
-  nmap <leader>tc :!tmux send-keys -tvim.1 C-c<CR><CR>:echo "Sent C-c to tmux"<CR>
-  nmap <leader>dbm :call SendToTmux("zeus rake db:migrate\n")<CR>
-  nmap <leader>dbr :call SendToTmux("zeus rake db:rollback\n")<CR>
-  nmap <leader>dbn :call SendToTmux("zeus rake db:rollback && zeus rake db:migrate\n")<CR>
-  nmap <leader>dbt :call SendToTmux("zeus rake db:test:prepare\n")<CR>
-else
-  map <leader>bi :!bundle<CR>
-  nmap <leader>gp :exec ':Git push origin ' . fugitive#head()<CR>
-  map <leader>dbm :!zeus rake db:migrate<CR>
-  map <leader>dbr :!zeus rake db:rollback<CR>
-  nmap <leader>dbt :!zeus rake db:test:prepare<CR>
-endif
-
 map <leader>bu :!bundle update<space>
 
 nmap <leader>bx :!bundle exec<space>
-nmap <leader>zx :!zeus<space>
 map <leader>vbi :BundleInstall<CR>
 map <leader>vbu :BundleUpdate<CR>
 
-nmap <leader>o ddko
-
-
 map <leader>vi :tabe ~/.vimrc<CR>
-map <leader>vt :tabe ~/.tmux.conf<CR>
-map <leader>td :tabe ~/Dropbox/todo.txt<CR>
-map <leader>tb :tabe ~/Dropbox/blog.txt<CR>
 map <leader>vs :source ~/.vimrc<CR>
 
 map <silent> <leader>gs :Gstatus<CR>/not staged<CR>/modified<CR>
@@ -179,37 +158,14 @@ map <leader>te :Tab/^[^=]*\zs/l0l1<CR>
 " tab for hash/json syntax
 map <leader>th :Tab/^[^:]*\zs/l0l1<CR>
 
-map <leader>rm <Plug>SetTmuxVars
-map <leader>ta :call RunAllSpecs()<CR>
-map <leader>tt :call RunCurrentSpecFile()<CR>
-map <leader>tl :call RunNearestSpec()<CR>
-map <leader>rrt :call RunCurrentTestNoZeus()<CR>
-map <leader>rrl :call RunCurrentLineInTestNoZeus()<CR>
-map <leader>rj :!~/Code/chrome-reload<CR><CR>
-
-map <leader>sm :RSmodel<space>
-map <leader>vc :RVcontroller<CR>
-map <leader>vm :RVmodel<space>
-map <leader>vv :RVview<CR>
-map <leader>zv :Rview<CR>
-map <leader>zc :Rcontroller<CR>
-map <leader>zm :Rmodel<space>
-
 " pane management
-map <leader>mh :wincmd H<CR>
-map <leader>mj :wincmd J<CR>
-map <leader>mk :wincmd K<CR>
-map <leader>ml :wincmd L<CR>
+"map <leader>mh :wincmd H<CR>
+"map <leader>mj :wincmd J<CR>
+"map <leader>mk :wincmd K<CR>
+"map <leader>ml :wincmd L<CR>
 
 " flip left and right panes
 map <leader>mm :NERDTreeTabsClose<CR>:wincmd l<CR>:wincmd H<CR>:NERDTreeTabsOpen<CR>:wincmd l<CR><C-W>=
-
-" restart pow
-map <leader>rp :!touch tmp/restart.txt<CR><CR>:echo "Restarted server"<CR>
-
-" select the current method in ruby (or it block in rspec)
-map <leader>sm /end<CR>?\<def\>\\|\<it\><CR>:noh<CR>V%
-map <leader>sf :e spec/factories/
 
 " j and k navigate through wrapped lines
 nmap k gk
@@ -220,17 +176,6 @@ command! Qall qall
 
 command! W w
 command! Wa wall
-
-" deprecated? must check new docs.
-autocmd User Rails Rnavcommand presenter app/presenters -glob=**/* -suffix=.rb
-
-" Set up some useful Rails.vim bindings for working with Backbone.js
-autocmd User Rails Rnavcommand template    app/assets/templates               -glob=**/*  -suffix=.jst.ejs
-autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models      -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jview       app/assets/javascripts/views       -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers     -glob=**/*  -suffix=.coffee
-autocmd User Rails Rnavcommand jspec       spec/javascripts                   -glob=**/*  -suffix=.coffee
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 " Source: https://github.com/thoughtbot/dotfiles/blob/master/vimrc
