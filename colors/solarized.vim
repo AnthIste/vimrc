@@ -1,0 +1,1 @@
+/home/salad/dotfiles/vim-colors-solarized/colors/solarized.vim

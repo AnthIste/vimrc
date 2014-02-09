@@ -45,19 +45,26 @@ syntax on
 let g:Powerline_symbols = 'fancy'
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:ctrlp_max_height = 25
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:ctrlp_max_height = 0
 let g:syntastic_check_on_open=1
 let NERDTreeShowHidden=0
 
 filetype plugin indent on
 
-set t_Co=256
-colorscheme ir_black
+" Color configuration
+set background=dark
 
-set guioptions=agim
-set lines=999
-set columns=999
+if has("gui_running")
+  colorscheme solarized
+
+  set guioptions=agimlr
+  set lines=999
+  set columns=999
+else
+  "set t_Co=256
+  colorscheme darkblue
+endif
 
 set splitright
 set splitbelow
@@ -112,14 +119,19 @@ inoremap <c-s> <esc>:w<CR>
 map <c-s> <c-c>:w<CR>
 cmap w!! %!sudo tee > /dev/null %
 
-" navigate panes with <c-hhkl>
+" search highlighting
+nmap <silent> <leader>ds :nohlsearch<CR>
+
+" toggle relative numbering
+noremap <silent> <leader>n :exec &rnu ? "se nu" : "se rnu"<CR>
+
+" navigate panes with <c-hjkl>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-map <leader>. :noh<CR>
-map <leader>n :NERDTreeTabsToggle<CR>
+map <F3> :NERDTreeTabsToggle<CR>
 map <leader>ff :NERDTreeFind<CR>
 
 " xmpfilter
@@ -136,7 +148,7 @@ map <leader>vbi :BundleInstall<CR>
 map <leader>vbu :BundleUpdate<CR>
 
 map <leader>vi :tabe ~/.vimrc<CR>
-map <leader>vs :source ~/.vimrc<CR>
+"map <leader>vs :source ~/.vimrc<CR>
 
 map <silent> <leader>gs :Gstatus<CR>/not staged<CR>/modified<CR>
 map <leader>gc :Gcommit<CR>
@@ -144,8 +156,19 @@ map <leader>gc :Gcommit<CR>
 map <leader>bn :bn<CR>
 map <leader>bp :bp<CR>
 
+" tab controls
 map <leader>tp :tabp<CR>
 map <leader>tn :tabn<CR>
+map <leader>tN :tabnew<CR>
+map <leader>tx :tabclose<CR>
+
+" split controls
+map <leader>vv :vsplit<CR>
+map <leader>vs :split<CR>
+
+" file controls
+noremap <leader>q :q<CR>
+noremap <leader>X :qall<CR>
 
 map <leader>= <C-w>=
 
@@ -176,6 +199,10 @@ command! Qall qall
 
 command! W w
 command! Wa wall
+
+" CtrlPTag
+let g:ctrlp_map = '<c-p>'
+nnoremap <leader>. :CtrlPTag<cr>
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 " Source: https://github.com/thoughtbot/dotfiles/blob/master/vimrc
