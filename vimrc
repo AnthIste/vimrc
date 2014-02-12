@@ -1,4 +1,4 @@
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/vimfiles/bundle/vundle/
 filetype off
 call vundle#rc()
 Bundle 'gmarik/vundle'
@@ -34,9 +34,12 @@ Bundle 'csexton/trailertrash.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'textobj-user'
 Bundle 'textobj-rubyblock'
+Bundle 'vim-csharp'
+"Bundle 'Omnisharp'
+Bundle 'flazz/vim-colorschemes'
 
 " autoindent with two spaces, always expand tabs
-autocmd BufNewFile,BufReadPost * set ai ts=2 sw=2 sts=2 et
+autocmd BufNewFile,BufReadPost * set ai ts=4 sw=4 sts=4 et
 
 " check for external file changes
 autocmd CursorHold,CursorMoved,BufEnter * checktime
@@ -56,7 +59,9 @@ filetype plugin indent on
 set background=dark
 
 if has("gui_running")
-  colorscheme solarized
+  "colorscheme sorcerer
+  "colorscheme candycode
+  colorscheme chance-of-storm
 
   set guioptions=agimlr
   set lines=999
@@ -114,6 +119,9 @@ set wildmode=longest,list
 
 let g:yankring_replace_n_pkey = '<C-;>'
 
+let g:NERDTreeWinPos = 'right'
+let g:NERDTreeWinSize = 50
+
 let mapleader=","
 inoremap <c-s> <esc>:w<CR>
 map <c-s> <c-c>:w<CR>
@@ -132,7 +140,7 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 map <F3> :NERDTreeTabsToggle<CR>
-map <leader>ff :NERDTreeFind<CR>
+map <leader>nf :NERDTreeFind<CR>
 
 " xmpfilter
 map <F10> <Plug>(xmpfilter-run)
@@ -147,7 +155,7 @@ nmap <leader>bx :!bundle exec<space>
 map <leader>vbi :BundleInstall<CR>
 map <leader>vbu :BundleUpdate<CR>
 
-map <leader>vi :tabe ~/.vimrc<CR>
+map <leader>vi :tabe ~/_vimrc<CR>
 "map <leader>vs :source ~/.vimrc<CR>
 
 map <silent> <leader>gs :Gstatus<CR>/not staged<CR>/modified<CR>
@@ -161,6 +169,8 @@ map <leader>tp :tabp<CR>
 map <leader>tn :tabn<CR>
 map <leader>tN :tabnew<CR>
 map <leader>tx :tabclose<CR>
+map <c-\> :tabn<CR>
+map \| :tabp<CR>
 
 " split controls
 map <leader>vv :vsplit<CR>
@@ -203,6 +213,7 @@ command! Wa wall
 " CtrlPTag
 let g:ctrlp_map = '<c-p>'
 nnoremap <leader>. :CtrlPTag<cr>
+let g:ctrlp_match_window = 'bottom,order:btt,min:20,max:20,results:10'
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 " Source: https://github.com/thoughtbot/dotfiles/blob/master/vimrc
@@ -240,3 +251,7 @@ if has("autocmd")
   augroup END
 
 endif " has("autocmd")
+
+" Visual Studio integration
+let g:visual_studio_python_exe="C:\\Python24\\python.exe"
+set autoread
