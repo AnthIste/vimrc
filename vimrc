@@ -1,4 +1,4 @@
-set rtp+=~/vimfiles/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle/
 filetype off
 call vundle#rc()
 Bundle 'gmarik/vundle'
@@ -34,15 +34,32 @@ Bundle 'csexton/trailertrash.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'textobj-user'
 Bundle 'textobj-rubyblock'
-Bundle 'vim-csharp'
+"Bundle 'vim-csharp'
 "Bundle 'Omnisharp'
+Bundle 'paredit'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'vim-glsl'
+
+" Snipmate
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+"Bundle 'honza/vim-snippets'
+
+" Clojure plugins
+Bundle 'tpope/vim-fireplace'
+"Bundle 'kien/rainbow_parentheses.vim'
+"Bundle 'kovisoft/slimv'
+Bundle 'guns/vim-clojure-static'
 
 " autoindent with two spaces, always expand tabs
 autocmd BufNewFile,BufReadPost * set ai ts=4 sw=4 sts=4 et
 
 " check for external file changes
 autocmd CursorHold,CursorMoved,BufEnter * checktime
+
+" disable auto-comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 syntax on
 let g:Powerline_symbols = 'fancy'
@@ -61,14 +78,19 @@ set background=dark
 if has("gui_running")
   "colorscheme sorcerer
   "colorscheme candycode
-  colorscheme chance-of-storm
+  "colorscheme chance-of-storm
+  "colorscheme jelleybeans
+  colorscheme ir_black
 
-  set guioptions=agimlr
+  "set guioptions=agimlr
+  set guioptions=agi
   set lines=999
   set columns=999
+
+  "set guifont=Consolas\ 11
 else
-  "set t_Co=256
-  colorscheme darkblue
+  set t_Co=256
+  colorscheme jellybeans
 endif
 
 set splitright
@@ -91,7 +113,7 @@ set cursorline
 hi CursorLine term=bold cterm=bold ctermbg=233
 
 set incsearch
-set hlsearch
+set nohlsearch
 noh " clear the initial highlight after sourcing
 set ignorecase smartcase
 set number
@@ -127,6 +149,21 @@ inoremap <c-s> <esc>:w<CR>
 map <c-s> <c-c>:w<CR>
 cmap w!! %!sudo tee > /dev/null %
 
+" -----------------------------------------------------
+
+" Enable rainbow parentheses for all buffers
+"augroup rainbow_parentheses
+    "au!
+    "au VimEnter * RainbowParenthesesActivate
+    "au BufEnter * RainbowParenthesesLoadRound
+    "au BufEnter * RainbowParenthesesLoadSquare
+    "au BufEnter * RainbowParenthesesLoadBraces
+"augroup END           augroup END
+
+" fireplace bindings
+nnoremap <leader>e :Eval<CR>
+vnoremap <leader>e :Eval<CR>
+
 " search highlighting
 nmap <silent> <leader>ds :nohlsearch<CR>
 
@@ -147,7 +184,7 @@ map <F10> <Plug>(xmpfilter-run)
 map <F9> <Plug>(xmpfilter-mark)
 
 " paste, fix indentation and clear the mark by default
-nnoremap p p=`]`<esc>
+" nnoremap p p=`]`<esc>
 
 map <leader>bu :!bundle update<space>
 
@@ -155,7 +192,7 @@ nmap <leader>bx :!bundle exec<space>
 map <leader>vbi :BundleInstall<CR>
 map <leader>vbu :BundleUpdate<CR>
 
-map <leader>vi :tabe ~/_vimrc<CR>
+map <leader>vi :tabe ~/.vimrc<CR>
 "map <leader>vs :source ~/.vimrc<CR>
 
 map <silent> <leader>gs :Gstatus<CR>/not staged<CR>/modified<CR>
@@ -167,7 +204,7 @@ map <leader>bp :bp<CR>
 " tab controls
 map <leader>tp :tabp<CR>
 map <leader>tn :tabn<CR>
-map <leader>tN :tabnew<CR>
+map <leader>tt :tabnew<CR>
 map <leader>tx :tabclose<CR>
 map <c-\> :tabn<CR>
 map \| :tabp<CR>

@@ -1,0 +1,53 @@
+# Namespace
+snippet ns
+	namespace ${1:} {
+
+	${2:}
+
+	}; /* namespace $1 */
+# Class
+snippet cl
+	class ${1:} {
+	public:
+		$1() { }
+
+		virtual ~$1() { }
+
+	private:
+	};
+snippet ctord
+	${1:}(${2:})
+		: ${3}
+	{ }
+
+# Methods
+snippet md
+	${1:void} ${2:method_name}(${3:});${4}
+snippet vmd
+	virtual ${1:void} ${2:method_name}(${3:});${4}
+snippet mi
+	${1:void} ${2:Class}::${3:method_name}(${4:})
+	{
+		${5}
+	}
+snippet ctori
+	${1:ClassName}::$1()
+	{
+		${2}
+	}
+snippet dtori
+	${1:ClassName}::~$1()
+	{
+		${2}
+	}
+# Pointers
+snippet sp
+	std::shared_ptr<${1:}>${2}
+# Include guards
+snippet guard
+	#ifndef INC_${1:HEADER}_H
+	#define INC_$1_H
+
+	${2}
+
+	#endif
