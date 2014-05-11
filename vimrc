@@ -13,22 +13,26 @@ Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'godlygeek/tabular'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'jistr/vim-nerdtree-tabs'
+"Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'scrooloose/nerdtree'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
 Bundle 'jwhitley/vim-matchit'
 Bundle 'csexton/trailertrash.vim'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'paredit'
+Bundle 'https://github.com/vim-scripts/paredit.vim.git'
 Bundle 'flazz/vim-colorschemes'
-Bundle 'vim-glsl'
+"Bundle 'vim-glsl'
 
 " Snipmate
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
-"Bundle 'honza/vim-snippets'
+""Bundle 'honza/vim-snippets'
+
+" Rust
+Bundle 'wting/rust.vim'
 
 " autoindent with two spaces, always expand tabs
 autocmd BufNewFile,BufReadPost * set ai ts=4 sw=4 sts=4 et
@@ -66,6 +70,7 @@ if has("gui_running")
   set columns=999
 
   "set guifont=Consolas\ 11
+  set guifont=Consolas:h10:cANSI
 else
   set t_Co=256
   colorscheme jellybeans
@@ -154,7 +159,8 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-map <F3> :NERDTreeTabsToggle<CR>
+"map <F3> :NERDTreeTabsToggle<CR>
+map <F3> :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 
 " xmpfilter
@@ -170,7 +176,7 @@ nmap <leader>bx :!bundle exec<space>
 map <leader>vbi :BundleInstall<CR>
 map <leader>vbu :BundleUpdate<CR>
 
-map <leader>vi :tabe ~/.vimrc<CR>
+map <leader>vi :tabe ~/_vimrc<CR>
 "map <leader>vs :source ~/.vimrc<CR>
 
 map <silent> <leader>gs :Gstatus<CR>/not staged<CR>/modified<CR>
@@ -213,7 +219,7 @@ map <leader>th :Tab/^[^:]*\zs/l0l1<CR>
 "map <leader>ml :wincmd L<CR>
 
 " flip left and right panes
-map <leader>mm :NERDTreeTabsClose<CR>:wincmd l<CR>:wincmd H<CR>:NERDTreeTabsOpen<CR>:wincmd l<CR><C-W>=
+"map <leader>mm :NERDTreeTabsClose<CR>:wincmd l<CR>:wincmd H<CR>:NERDTreeTabsOpen<CR>:wincmd l<CR><C-W>=
 
 " j and k navigate through wrapped lines
 nmap k gk
